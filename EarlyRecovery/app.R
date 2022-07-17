@@ -7,6 +7,7 @@ library(echarts4r.maps)
 #Read csv file and assign it to an object
 
 er <- read.csv("earlyrecovery.csv")
+prettyNum(er$total_beneficiaries, big.mark = ",", scientific = FALSE)
 head(er)
 
 
@@ -418,6 +419,7 @@ server <- function(input, output, session) {
   output$calboys <- renderUI({
     cal <- er %>% 
       summarise(sumBoys = sum(boys_6_17, na.rm = TRUE))
+      format(cal$sumBoys, big.mark = ",", scientific = FALSE)
     
     })
  
@@ -425,13 +427,15 @@ server <- function(input, output, session) {
   output$allBen <- renderUI({
     totalBen <- er %>% 
       summarise(allBeneficiaries = sum(total_beneficiaries, na.rm = TRUE))
+      format(totalBen$allBeneficiaries, big.mark = ",", scientific = FALSE)
     
   }) 
   
   
   output$women <- renderUI({
     totalWomen <- er %>% 
-      summarise(allWomen = sum(women_18_59, na.rm = TRUE))
+      summarise(allWomen = sum(women_18_59, na.rm = TRUE)) 
+      format(totalWomen$allWomen, big.mark = ",", scientific = FALSE)
     
   }) 
   
@@ -439,6 +443,7 @@ server <- function(input, output, session) {
   output$men <- renderUI({
     totalMen <- er %>% 
       summarise(allMen = sum(men_18_59, na.rm = TRUE))
+    format(totalMen$allMen, big.mark = ",", scientific = FALSE)
     
   }) 
   
@@ -446,7 +451,7 @@ server <- function(input, output, session) {
   output$girls <- renderUI({
     totalGirls <- er %>% 
       summarise(allGirls = sum(girls_6_17, na.rm = TRUE))
-    
+      format(totalGirls$allGirls, big.mark = ",", scientific = FALSE)
   }) 
 
   
