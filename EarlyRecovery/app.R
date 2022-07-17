@@ -2,6 +2,9 @@ library(shiny)
 library(dplyr)
 library(echarts4r)
 library(tidyverse)
+library(echarts4r.maps)
+
+#Read csv file and assign it to an object
 
 er <- read.csv("earlyrecovery.csv")
 head(er)
@@ -201,178 +204,167 @@ ui <- div(
     '), #<!--Navbar ends-->
   
         #<!--KPI Cards -->
-  
-  HTML(' 
-       
-       <div class="flex flex-wrap mx-3 mt-6">
-       
-       
-          <!-- card1 -->
-             <div class="w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5">
-              <div class="flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border">
-                <div class="flex-auto pt-1">
-                  <div class="flex flex-row -mx-3">
-                    <div class="flex-none w-2/3 max-w-full px-3">
-                      <div>
-                        <p class="mb-0 font-sans font-semibold text-orange-700 text-opacity-75">Beneficiaries Reached</p>
-                          <h5 class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl">
-                          75,000
-                         <!-- <span class="leading-normal text-size-sm font-weight-bolder text-lime-500">+55%</span> -->
-                          </h5>
-                          </div>
-                         </div>
-                        <div class="px-3 text-right basis-1/3 pt-1">
-                       <div class="inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-1"> 
-                      <svg xmlns="http://www.w3.org/2000/svg" class= "h-10 w-10 "viewBox="0 0 48 32"><g fill="#dd6b20" data-name="Layer 2">
-                        <path d="M39 15h-2a8.957 8.957 0 0 0-3.66.782A13.973 13.973 0 0 1 39 27h9v-3a9 9 0 0 0-9-9zM14.66 15.782A8.957 8.957 0 0 0 11 15H9a9 9 0 0 0-9 9v3h9a13.973 13.973 0 0 1 5.66-11.218zM25 16h-2a11 11 0 0 0-11 11v5h24v-5a11 11 0 0 0-11-11z"/><circle cx="24" cy="7" r="7"/><circle cx="10" cy="8" r="5"/><circle cx="38" cy="8" r="5"/></g>
-                      </svg>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-         
-         
-          <!-- card2 -->
-             <div class="w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5">
-              <div class="flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border">
-                <div class="flex-auto pt-1">
-                  <div class="flex flex-row -mx-3">
-                    <div class="flex-none w-2/3 max-w-full px-3">
-                      <div>
-                        <p class="mb-0 font-sans font-semibold text-orange-700 text-opacity-75">Women Reached</p>
-                          <h5 class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl">
-                          32,296
-                         <!-- <span class="leading-normal text-size-sm font-weight-bolder text-lime-500">+55%</span> -->
-                          </h5>
-                          </div>
-                         </div>
-                        <div class="px-3 text-right basis-1/3 pt-1">
-                       <div class="inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-0"> 
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-12"  viewBox="0 0 25.99 48"><g fill="#dd6b20" data-name="Layer 2">
-                        <path d="M13 10C5.46 10 0 15.05 0 22a2 2 0 0 0 4 0 7.4 7.4 0 0 1 5-7L5 34a.92.92 0 0 0 1 1h2v11a2 2 0 0 0 4 0V35h2v11a2 2 0 1 0 4 0V35h2a.92.92 0 0 0 1-1l-4-19a7.53 7.53 0 0 1 5 7 2 2 0 0 0 4 0c0-6.95-5.47-12-13-12z"/><circle cx="12.99" cy="4" r="4"/></g>
-                     </svg>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-
-
-          <!-- card3 -->
-          <div class="w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5">
-              <div class="flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border">
-                <div class="flex-auto pt-1">
-                  <div class="flex flex-row -mx-3">
-                    <div class="flex-none w-2/3 max-w-full px-3">
-                      <div>
-                        <p class="mb-0 font-sans font-semibold text-orange-700 text-opacity-75">Men Reached</p>
-                          <h5 class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl">
-                          12,300
-                         <!-- <span class="leading-normal text-size-sm font-weight-bolder text-lime-500">+55%</span> -->
-                          </h5>
-                          </div>
-                         </div>
-                        <div class="px-3 text-right basis-1/3 pt-1">
-                       <div class="inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-0"> 
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-12"  viewBox="0 0 25.987 48"><g fill="#dd6b20" data-name="Layer 2">
-                        <path d="M12.991 10C5.464 10 0 15.047 0 22a2 2 0 0 0 4 0 7.848 7.848 0 0 1 3.991-7v31a2 2 0 0 0 4 0V31h2v15a2 2 0 1 0 4 0V14.999A7.847 7.847 0 0 1 21.987 22a2 2 0 0 0 4 0c0-6.953-5.466-12-12.996-12z"/><circle cx="12.991" cy="4" r="4"/></g>
-                      </svg>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-              
-              
-
-            <!-- card4 -->
-        <div class="w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5">
-              <div class="flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border">
-                <div class="flex-auto pt-1">
-                  <div class="flex flex-row -mx-3">
-                    <div class="flex-none w-2/3 max-w-full px-3">
-                      <div>
-                        <p class="mb-0 font-sans font-semibold text-orange-700 text-opacity-75">Girls Reached</p>
-                          <h5 class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl">
-                          1,450
-                         <!-- <span class="leading-normal text-size-sm font-weight-bolder text-lime-500">+55%</span> -->
-                          </h5>
-                          </div>
-                         </div>
-                        <div class="px-3 text-right basis-1/3 pt-1">
-                       <div class="inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-0"> 
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-12"  viewBox="0 0 25.99 48"><g fill="#dd6b20" data-name="Layer 2">
-                        <path d="M13 10C5.46 10 0 15.05 0 22a2 2 0 0 0 4 0 7.4 7.4 0 0 1 5-7L5 34a.92.92 0 0 0 1 1h2v11a2 2 0 0 0 4 0V35h2v11a2 2 0 1 0 4 0V35h2a.92.92 0 0 0 1-1l-4-19a7.53 7.53 0 0 1 5 7 2 2 0 0 0 4 0c0-6.95-5.47-12-13-12z"/><circle cx="12.99" cy="4" r="4"/></g>
-                     </svg>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
+ 
+  div(class = "flex flex-wrap mx-3 mt-6",
       
-      
-                 <!-- card5 -->
-            <div class="w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5">
-              <div class="flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border">
-                <div class="flex-auto pt-1">
-                  <div class="flex flex-row -mx-3">
-                    <div class="flex-none w-2/3 max-w-full px-3">
-                      <div>
-                        <p class="mb-0 font-sans font-semibold text-orange-700 text-opacity-75">Boys Reached</p>
-                          <h5 class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl">
-                          2,502
-                         <!-- <span class="leading-normal text-size-sm font-weight-bolder text-lime-500">+55%</span> -->
-                          </h5>
-                          </div>
-                         </div>
-                        <div class="px-3 text-right basis-1/3 pt-1">
-                       <div class="inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-0"> 
-                       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-12"  viewBox="0 0 25.987 48"><g fill="#dd6b20" data-name="Layer 2">
-                        <path d="M12.991 10C5.464 10 0 15.047 0 22a2 2 0 0 0 4 0 7.848 7.848 0 0 1 3.991-7v31a2 2 0 0 0 4 0V31h2v15a2 2 0 1 0 4 0V14.999A7.847 7.847 0 0 1 21.987 22a2 2 0 0 0 4 0c0-6.953-5.466-12-12.996-12z"/><circle cx="12.991" cy="4" r="4"/></g>
-                      </svg>
-                   </div>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-      </div>
-        
-        
-        
-       
-       '),
-        #<!--KPI cards end-->
-  
-  
-  
-  
-  
-  
-  
-  
-  div (class="flex justify-center ml-5 mr-10 flex-col pt-6",
-       div (class="shadow-md rounded-lg w-full m-2 border-t-4 border-orange-600 bg-white",
-      
-                 div (class="flex",
-                      div (class="w-1/2 p-0 mr-6 pt-5",
-                           
-                           echarts4r::echarts4rOutput(
-                             outputId = "bar_chart"
-                           ),
-                           
-                      )
-                 )
+      #Card1
+      div(class = "w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5",
+          div(class = "flex flex-row shadow-lg p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border",
+              div(class = "flex-auto pt-1",
                  
-            )
+                          div(p(class = "mb-0 font-sans font-semibold text-orange-700 text-opacity-75",
+                                "Beneficiaries Reached",
+                             
+                                 uiOutput("allBen", class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl text-left"),
+                                div (class="px-3 text-right basis-1/3",
+                                #div(class = "inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-1 text-right",
+                                   # "logo")
+                              )))))),
+      
+      
+      #Card2
+      div(class = "w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5",
+          div(class = "flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border",
+              div(class = "flex-auto pt-1",
+                  div(class = "flex flex-row -mx-3",
+                      div(class = "flex-none w-2/3 max-w-full px-3",
+                          div(p(class = "mb-0 font-sans font-semibold text-orange-700 text-opacity-75",
+                                "Women Reached"),
+                              uiOutput("women", class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl text-left"),
+                                 
+                                 # span(class = "leading-normal text-size-sm font-weight-bolder text-lime-500",
+                                 #  "+55%"),
+                                # div(class = "inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-1",
+                                   #  "")
+                                 
+                                 )))))),
+      
+      #Card3
+      div(class = "w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5",
+          div(class = "flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border",
+              div(class = "flex-auto pt-1",
+                  div(class = "flex flex-row -mx-3",
+                      div(class = "flex-none w-2/3 max-w-full px-3",
+                          div(p(class = "mb-0 font-sans font-semibold text-orange-700 text-opacity-75",
+                                "Men Reached"),
+                                uiOutput("men", class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl text-left"),
+                                 
+                                 # span(class = "leading-normal text-size-sm font-weight-bolder text-lime-500",
+                                 #  "+55%"),
+                                 #div(class = "inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-1",
+                                   #  "")
+                                 
+                                 )))))),
+      
+      
+      #Card4
+      div(class = "w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5",
+          div(class = "flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border",
+              div(class = "flex-auto pt-1",
+                  div(class = "flex flex-row -mx-3",
+                      div(class = "flex-none w-2/3 max-w-full px-3",
+                          div(p(class = "mb-0 font-sans font-semibold text-orange-700 text-opacity-75",
+                                "Girls Reached"),
+                              uiOutput("girls", class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl text-left"),
+                                 # span(class = "leading-normal text-size-sm font-weight-bolder text-lime-500",
+                                 #  "+55%"),
+                                 #div(class = "inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-1",
+                                    # "")
+                                 
+                                 )))))),
+      #Card5
+      div(class = "w-full max-w-full px-4 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/5",
+          div(class = "flex shadow-lg items-center p-2 bg-white border-l-4 border-orange-600 rounded-sm bg-clip-border",
+              div(class = "flex-auto pt-1",
+                  div(class = "flex flex-row -mx-3",
+                      div(class = "flex-none w-2/3 max-w-full px-3",
+                          
+                          div(p(class = "mb-0 font-sans font-semibold text-orange-700 text-opacity-75",
+                                "Boys Reached"),
+                              uiOutput("calboys", class="mb-0 font-bold text-orange-600 text-opacity-75 text-2xl text-left"),
+                                 # span(class = "leading-normal text-size-sm font-weight-bolder text-lime-500",
+                                 #  "+55%"),
+                                 
+                                 #div(class = "inline-block w-12 h-12 text-center rounded-full bg-orange-600 bg-opacity-25 pt-1 pl-1",
+                                    # "")
+                                 
+                                 ))))))
+      
+  ),
+#<!--KPI cards end-->
+
+#<!--First Card for charts-->
+
+
+  div (class="flex sm:flex-no-wrap items-center justify-center ml-6 mr-8  mt-10  border-t-4 border-orange-600 bg-white shadow-md rounded-lg",
+   
+       div (class="w-full sm:w-1/2 m-2 pt-3",   
             
-       )
-)#--Body tag ends--
+            echarts4r::echarts4rOutput(outputId = "bar_chart"),
+            
+            ),
+       
+       div (class="w-full sm:w-1/2 m-2 pt-3", 
+            
+            echarts4r::echarts4rOutput(outputId = "bar_chartState"),
+            ),
+  ), 
+  
+#<!--End of First Card for charts-->
+
+
+
+#<!--Second Card for charts-->
+
+
+div (class="flex sm:flex-no-wrap items-center justify-center ml-6 mr-8  mt-10  border-t-4 border-orange-600 bg-white shadow-md rounded-lg",
+     
+     div (class="w-full sm:w-1/2 m-2 pt-3",   
+          
+          echarts4r::echarts4rOutput(outputId = "bar_chartLGA"),
+          
+     ),
+     
+     div (class="w-full sm:w-1/2 m-2 pt-3", 
+          
+          echarts4r::echarts4rOutput(outputId = "bar_chart2"),
+     ),
+), 
+
+
+#<!--End of second Card for charts-->
+
+
+#<!--Third Card for charts-->
+
+
+div (class="flex sm:flex-no-wrap items-center justify-center ml-6 mr-8  mt-10  border-t-4 border-orange-600 bg-white shadow-md rounded-lg",
+     
+     div (class="w-full sm:w-1/3 m-2 pt-3",   
+          
+          echarts4r::echarts4rOutput(outputId = "pie_chartOrg"),
+          
+     ),
+     
+     div (class="w-full sm:w-1/3 m-2 pt-3", 
+          
+          echarts4r::echarts4rOutput(outputId = "pie_chartHRP"),
+     ),
+     
+     
+     div (class="w-full sm:w-1/3 m-2 pt-3", 
+          
+          echarts4r::echarts4rOutput(outputId = "pie_chartStatus"),
+     ),
+), 
+
+br(), br(),
+#<!--End of Third Card for charts-->
+
+
+
+
+)#<--Body tag ends-->
 
 server <- function(input, output, session) {
   
@@ -388,15 +380,174 @@ server <- function(input, output, session) {
       e_charts(imp.acronym) %>% 
       e_bar(serie = total_beneficiaries, color= "#dd6b20", name = "Total Beneficiaries", fontSize = 7) %>%
       e_tooltip("item") %>% 
-      e_title("Total Beneficiaries Reached by Implementing Partners (Top 10)", textStyle = list(fontSize = 13, fontWeight="normal"), left="68") %>% 
-      e_grid( top = 30) %>% 
+      e_title("Total Beneficiaries Reached by Implementing Partners (Top 10)", textStyle = list(fontSize = 13, fontWeight="normal"), left="10%") %>% 
+      e_grid( top = 30, bottom=40) %>% 
       e_legend(show = FALSE) %>% 
       e_flip_coords() %>%  #To flip your bar chart
       e_y_axis(inverse=TRUE) %>% #To sort your bar chart from highest to lowest
-      e_labels(show = TRUE, position = "outside", fontSize = 7, color="#e69058") %>% 
-      e_x_axis(axisLabel = list(fontSize = 8)) %>% 
-      e_y_axis(axisLabel = list(fontSize = 10))
+      e_labels(show = TRUE, position = "outside", fontSize = 8, color="#e69058") %>% 
+      e_x_axis(axisLabel = FALSE, splitLine = FALSE) %>% 
+      e_y_axis(axisLabel = list(fontSize = 10, color = "gray"), axisTick = list(lineStyle=list(color = "#e69058")), axisLine= list(lineStyle = list(color = "#e69058"))) %>% 
+      e_show_loading()
   })
+  
+  
+  
+  
+  output$bar_chart2 <- echarts4r::renderEcharts4r({
+    
+    er %>% 
+      group_by(imp.acronym) %>% 
+      summarise(total_beneficiaries = sum(total_beneficiaries)) %>% 
+      filter(total_beneficiaries >= 286) %>% 
+      arrange(desc(total_beneficiaries)) %>% 
+      e_charts(imp.acronym) %>% 
+      e_bar(serie = total_beneficiaries, color= "#dd6b20", name = "Total Beneficiaries", fontSize = 7, animation = TRUE, animationThreshold = "4000", animationDuration="1300") %>%
+      e_tooltip("item") %>% 
+      e_title("Beneficiaries Reached by Implementing Partners (Top 10)", textStyle = list(fontSize = 13, fontWeight="normal"), left="10%") %>% 
+      e_grid( top = 50, bottom=40) %>% 
+      e_legend(show = FALSE) %>% 
+      #e_flip_coords() %>%  #To flip your bar chart
+      #e_y_axis(inverse=TRUE) %>% #To sort your bar chart from highest to lowest
+      e_labels(show = TRUE, position = "inside", fontSize = 8, color="#e69058") %>% 
+      e_y_axis(axisLabel = list(fontSize = 8, color = "gray"), max = "dataMax", splitLine = list(show=TRUE, lineStyle = list(width = "0.7", type= "dashed"))) %>% 
+      e_x_axis(axisLabel = list(fontSize = 10, color = "gray"), axisTick = list(lineStyle=list(color = "#e69058")), axisLine= list(lineStyle = list(color = "#e69058"))) %>% 
+      e_show_loading()
+  })
+  
+  output$calboys <- renderUI({
+    cal <- er %>% 
+      summarise(sumBoys = sum(boys_6_17, na.rm = TRUE))
+    
+    })
+ 
+  
+  output$allBen <- renderUI({
+    totalBen <- er %>% 
+      summarise(allBeneficiaries = sum(total_beneficiaries, na.rm = TRUE))
+    
+  }) 
+  
+  
+  output$women <- renderUI({
+    totalWomen <- er %>% 
+      summarise(allWomen = sum(women_18_59, na.rm = TRUE))
+    
+  }) 
+  
+  
+  output$men <- renderUI({
+    totalMen <- er %>% 
+      summarise(allMen = sum(men_18_59, na.rm = TRUE))
+    
+  }) 
+  
+  
+  output$girls <- renderUI({
+    totalGirls <- er %>% 
+      summarise(allGirls = sum(girls_6_17, na.rm = TRUE))
+    
+  }) 
+
+  
+  output$bar_chartLGA <- echarts4r::renderEcharts4r({
+    
+    er %>% 
+      group_by(lga) %>% 
+      summarise(total_beneficiaries =sum(total_beneficiaries)) %>% 
+      filter(total_beneficiaries >= 601) %>% 
+      arrange(desc(total_beneficiaries)) %>% 
+      e_charts(lga) %>% 
+      e_bar(serie = total_beneficiaries, color= "#dd6b20", name = "Number of Beneficiaries", fontSize = 7) %>%
+      e_tooltip("item") %>% 
+      e_title("Number Beneficiaries Reached by LGA", textStyle = list(fontSize = 13, fontWeight="normal"), left="10%") %>% 
+      e_grid( top = 30, bottom=30) %>% 
+      e_legend(show = FALSE) %>% 
+      e_flip_coords() %>%  #To flip your bar chart
+      e_y_axis(inverse=TRUE) %>% #To sort your bar chart from highest to lowest
+      e_labels(show = TRUE, position = "outside", fontSize = 8, color="#e69058") %>% 
+      e_x_axis(axisLabel = list(fontSize = 8, color = "gray"), max = "dataMax", splitLine = list(show=TRUE, lineStyle = list(width = "0.7", type= "dashed"))) %>% 
+      e_y_axis(axisLabel = list(fontSize = 10, color = "gray"), axisTick = list(lineStyle=list(color = "#e69058")), axisLine= list(lineStyle = list(color = "#e69058"))) %>% 
+      e_show_loading()
+  })
+  
+  
+  
+  output$bar_chartState <- echarts4r::renderEcharts4r({
+    
+    er %>% 
+      group_by(state) %>% 
+      summarise(total_beneficiaries = sum(total_beneficiaries)) %>%
+      arrange(desc(total_beneficiaries)) %>% 
+      e_charts(state) %>% 
+      e_bar(serie = total_beneficiaries, color= "#dd6b20",  name = "Number of Beneficiaries", fontSize = 7, barWidth ="40%") %>%
+      e_tooltip("item") %>% 
+      e_title("Number Beneficiaries Reached by State", textStyle = list(fontSize = 13, fontWeight="normal"), left="10%") %>% 
+      e_grid( top = 50, bottom=30) %>% 
+      e_legend(show = FALSE) %>% 
+      #e_flip_coords() %>%  #To flip your bar chart
+      #e_y_axis(inverse=TRUE) %>% #To sort your bar chart from highest to lowest
+      e_labels(show = TRUE, position = "inside", fontSize = 8, color="#e69058") %>% 
+      e_y_axis(axisLabel = list(fontSize = 8, color = "gray"), splitLine = list(show=TRUE, lineStyle = list(width = "0.7", type= "dashed"))) %>% 
+      e_x_axis(axisLabel = list(fontSize = 10, color = "gray"),  axisTick = list(lineStyle=list(color = "#e69058")), axisLine= list(lineStyle = list(color = "#e69058")))
+
+  })
+  
+  
+  output$pie_chartOrg <- echarts4r::renderEcharts4r({
+    
+    er %>% 
+      group_by(org_category) %>% 
+      summarise(total_beneficiaries = sum(total_beneficiaries)) %>% 
+      e_charts(org_category) %>% 
+      e_pie(total_beneficiaries, name = "Total Beneficiaries", radius = c("50%", "70%"), color = list("#cc661e", "#efa482", "#a65017")) %>% 
+      e_labels(show = TRUE,
+               formatter = "{b}\n {d}%",
+               position = "outside") %>% 
+      e_legend(top = "bottom")%>%
+      e_tooltip("item") %>% 
+      e_title("Reached by Organisation Type", textStyle = list(fontSize = 13, fontWeight="normal"), left="center") %>% 
+      e_grid( top = 50, bottom=30)
+
+  })
+  
+  
+  output$pie_chartHRP <- echarts4r::renderEcharts4r({
+    
+    er %>% 
+      group_by(HRP) %>% 
+      summarise(total_beneficiaries = sum(total_beneficiaries)) %>% 
+      e_charts(HRP) %>% 
+      e_pie(total_beneficiaries, name = "Number of Beneficiaries", roseType= "area", color = list("#cc661e", "#efa482")) %>% 
+      e_labels(show = TRUE,
+               formatter = "{d}%",
+               position = "outside") %>% 
+      e_legend(top = "bottom")%>%
+      e_tooltip("item") %>% 
+      e_title("Beneficiaries Reached Project Type", textStyle = list(fontSize = 13, fontWeight="normal"), left="center") %>% 
+      e_grid( top = 50, bottom=30)
+    
+  })
+  
+  output$pie_chartStatus <- echarts4r::renderEcharts4r({
+    
+    er %>% 
+      group_by(ben_status) %>% 
+      summarise(total_beneficiaries = sum(total_beneficiaries)) %>% 
+      e_charts(ben_status) %>% 
+      e_pie(total_beneficiaries, name = "Beneficiaries", radius = c("50%", "70%"), roseType= "area", color = list("#cc661e", "#efa482")) %>% 
+      e_labels(show = TRUE,
+               formatter = "{d}%",
+               position = "outside") %>% 
+      e_legend(top = "bottom")%>%
+      e_tooltip("item") %>% 
+      e_title("Total Reached by Beneficiary Status", textStyle = list(fontSize = 13, fontWeight="normal"), left="center") %>% 
+      e_grid( top = 50, bottom=30)
+    
+  })
+  
+  
+  
   
 }
 
